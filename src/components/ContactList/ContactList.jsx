@@ -8,11 +8,17 @@ import {
   NumberInfo,
   DeleteButton,
 } from './ContactList.styled';
+import { useGetContactsQuery } from '../../redux/contactsAPISlice';
 
 const ContactList = () => {
   const dispatch = useDispatch();
   const addedContacts = useSelector(getContacts);
   const enteredFilterValue = useSelector(getFilterValue);
+  const { data, error, isLoading } = useGetContactsQuery();
+
+  console.log(data);
+  console.log(isLoading);
+  console.log(error);
 
   const getFiltredContacts = () => {
     const normalizeFilter = enteredFilterValue.toLowerCase();

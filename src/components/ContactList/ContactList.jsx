@@ -8,13 +8,17 @@ import {
   NumberInfo,
   DeleteButton,
 } from './ContactList.styled';
-import { useGetContactsQuery } from '../../redux/contactsAPISlice';
+import {
+  useGetContactsQuery,
+  useDeleteContactMutation,
+} from '../../redux/contactsAPISlice';
 
 const ContactList = () => {
   const dispatch = useDispatch();
   const addedContacts = useSelector(getContacts);
   const enteredFilterValue = useSelector(getFilterValue);
   const { data, error, isLoading } = useGetContactsQuery();
+  const [contactToDelete, result] = useDeleteContactMutation();
 
   console.log(data);
   console.log(isLoading);

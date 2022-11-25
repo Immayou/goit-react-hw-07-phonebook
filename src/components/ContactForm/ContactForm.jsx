@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TiPhoneOutline } from 'react-icons/ti';
-import { generate } from 'shortid';
 import { addContact, getContacts } from '../../redux/contactSlice';
 import { useAddContactMutation } from '../../redux/contactsAPISlice';
 import {
@@ -13,6 +12,7 @@ import {
   InputNumberField,
   FormButton,
 } from './ContactForm.styled';
+import { nanoid } from '@reduxjs/toolkit';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -21,8 +21,8 @@ const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const nameInputId = generate();
-  const numberInputId = generate();
+  const nameInputId = nanoid();
+  const numberInputId = nanoid();
 
   const handleInput = e => {
     switch (e.target.name) {

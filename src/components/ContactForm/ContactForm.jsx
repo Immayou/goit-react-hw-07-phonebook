@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
 import { TiPhoneOutline } from 'react-icons/ti';
-import { addContact, getContacts } from '../../redux/contactSlice';
+import { useGetContactsQuery } from '../../redux/contactsAPISlice';
 import { useAddContactMutation } from '../../redux/contactsAPISlice';
 import {
   Title,
@@ -12,12 +12,11 @@ import {
   InputNumberField,
   FormButton,
 } from './ContactForm.styled';
-import { nanoid } from '@reduxjs/toolkit';
 
 const ContactForm = () => {
-  const dispatch = useDispatch();
-  const addedContacts = useSelector(getContacts);
-  const [newContact] = useAddContactMutation();
+  const { data } = useGetContactsQuery();
+  const [newContact, { isLoading, isSuccess, isError }] =
+    useAddContactMutation();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -44,14 +43,13 @@ const ContactForm = () => {
       phone: number,
     };
 
-    const checkIfNewContactAlreadyExists = addedContacts.find(
+    const checkIfNewContactAlreadyExists = data.find(
       ({ name }) => name.toLowerCase() === contactToAdd.name.toLowerCase()
     );
 
     checkIfNewContactAlreadyExists
       ? alert(`${contactToAdd.name} is already in contacts`)
       : await newContact(contactToAdd);
-    // dispatch(addContact(contactToAdd));
 
     reset();
   };
@@ -88,7 +86,9 @@ const ContactForm = () => {
         onChange={handleInput}
         required
       />
-      <FormButton type="submit">Add contact</FormButton>
+      <FormButton type="submit" disabled={isLoading}>
+        Add contact
+      </FormButton>
     </PhoneForm>
   );
 };

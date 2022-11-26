@@ -19,14 +19,14 @@ export const App = () => {
   const addedContacts = useSelector(getContacts);
   const { data, error, isLoading } = useGetContactsQuery();
 
-  const isArrayOfContactsEmpty = data.length !== 0;
+  // const isArrayOfContactsEmpty = data.length !== 0;
 
   return (
     <Wrapper>
       <ContainerBox>
         <Box>
           <ContactForm />
-          {isArrayOfContactsEmpty && (
+          {data && (
             <div>
               <ContactsTitle>Contacts</ContactsTitle>
               <Filter />

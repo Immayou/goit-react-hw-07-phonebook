@@ -15,48 +15,28 @@ import {
 
 const ContactList = () => {
   const dispatch = useDispatch();
-  const addedContacts = useSelector(getContacts);
   const enteredFilterValue = useSelector(getFilterValue);
   const { data, error, isLoading } = useGetContactsQuery();
-  const [contactToDelete, result] = useDeleteContactMutation();
+  const [deleteContact, result] = useDeleteContactMutation();
 
   console.log(data);
   console.log(isLoading);
   console.log(error);
 
-  const getFiltredContacts = async () => {
-    const normalizeFilter = enteredFilterValue.toLowerCase();
-    await data;
-    const visibleContacts = addedContacts.filter(({ name }) =>
-      name.toLowerCase().includes(normalizeFilter)
-    );
-    return visibleContacts;
-  };
-
-  const contactsToRender = getFiltredContacts();
-
-  // const getFiltredContacts = () => {
-  //   const normalizeFilter = enteredFilterValue.toLowerCase();
-  //   const visibleContacts = addedContacts.filter(({ name }) =>
-  //     name.toLowerCase().includes(normalizeFilter)
-  //   );
-  //   return visibleContacts;
-  // };
-
-  // const contactsToRender = getFiltredContacts();
+  const normalizeFilter = enteredFilterValue.toLowerCase();
+  const visibleContacts = data.filter(({ name }) =>
+    name.toLowerCase().includes(normalizeFilter)
+  );
 
   return (
     <ListOfContacts>
-      {contactsToRender.map(({ id, name, number }) => (
+      {visibleContacts.map(({ id, name, number }) => (
         <ContactItem key={id}>
           <div>
             <NameInfo>{name}: </NameInfo>
             <NumberInfo>{number}</NumberInfo>
           </div>
-          <DeleteButton
-            type="button"
-            onClick={() => dispatch(deleteContact(id))}
-          >
+          <DeleteButton type="button" onClick={() => deleteContact(id)}>
             Delete
           </DeleteButton>
         </ContactItem>

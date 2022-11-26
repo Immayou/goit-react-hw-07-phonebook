@@ -24,8 +24,9 @@ const ContactList = () => {
   console.log(isLoading);
   console.log(error);
 
-  const getFiltredContacts = () => {
+  const getFiltredContacts = async () => {
     const normalizeFilter = enteredFilterValue.toLowerCase();
+    await data;
     const visibleContacts = addedContacts.filter(({ name }) =>
       name.toLowerCase().includes(normalizeFilter)
     );
@@ -33,6 +34,16 @@ const ContactList = () => {
   };
 
   const contactsToRender = getFiltredContacts();
+
+  // const getFiltredContacts = () => {
+  //   const normalizeFilter = enteredFilterValue.toLowerCase();
+  //   const visibleContacts = addedContacts.filter(({ name }) =>
+  //     name.toLowerCase().includes(normalizeFilter)
+  //   );
+  //   return visibleContacts;
+  // };
+
+  // const contactsToRender = getFiltredContacts();
 
   return (
     <ListOfContacts>

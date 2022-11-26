@@ -9,6 +9,7 @@ import Box from '../Box/Box';
 import ContactForm from '../ContactForm/ContactForm';
 
 import ContactList from '../ContactList/ContactList';
+import { useGetContactsQuery } from '../../redux/contactsAPISlice';
 
 import Filter from '../Filter/Filter';
 
@@ -16,8 +17,9 @@ import { Wrapper, ContactsTitle } from './App.styled';
 
 export const App = () => {
   const addedContacts = useSelector(getContacts);
+  const { data, error, isLoading } = useGetContactsQuery();
 
-  const isArrayOfContactsEmpty = addedContacts.length !== 0;
+  const isArrayOfContactsEmpty = data.length !== 0;
 
   return (
     <Wrapper>

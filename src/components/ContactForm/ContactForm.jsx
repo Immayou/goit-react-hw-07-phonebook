@@ -30,8 +30,8 @@ const ContactForm = () => {
     });
   };
 
-  const notifyError = () => {
-    toast.error('Such contact already exists!', {
+  const notifyError = text => {
+    toast.error(`${text} already exists in contacts!`, {
       position: toast.POSITION.TOP_CENTER,
     });
   };
@@ -62,7 +62,7 @@ const ContactForm = () => {
     );
 
     checkIfNewContactAlreadyExists
-      ? notifyError()
+      ? notifyError(contactToAdd.name)
       : (await newContact(contactToAdd)) && notifySuccess();
 
     reset();

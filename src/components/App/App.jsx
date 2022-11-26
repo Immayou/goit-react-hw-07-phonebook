@@ -11,7 +11,7 @@ import { Wrapper, ContactsTitle } from './App.styled';
 
 export const App = () => {
   const { data, error, isLoading } = useGetContactsQuery();
-  const show = data && data.length > 0;
+  const isContactListEmpty = data && data.length > 0;
 
   return (
     <Wrapper>
@@ -19,7 +19,7 @@ export const App = () => {
         <TopBox>
           <ContactForm />
         </TopBox>
-        {show && (
+        {isContactListEmpty && (
           <BottomBox>
             <div>
               <ContactsTitle>Contacts</ContactsTitle>
@@ -28,7 +28,11 @@ export const App = () => {
             </div>
           </BottomBox>
         )}
-        {isLoading && <Spinner />}
+        {isLoading && (
+          <div>
+            <Spinner />
+          </div>
+        )}
         {error && (
           <BottomBox>
             <div style={{ padding: '10px' }}>

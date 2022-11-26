@@ -11,6 +11,7 @@ import { Wrapper, ContactsTitle } from './App.styled';
 
 export const App = () => {
   const { data, error, isLoading } = useGetContactsQuery();
+  const show = data && data.length > 0;
 
   return (
     <Wrapper>
@@ -18,16 +19,18 @@ export const App = () => {
         <TopBox>
           <ContactForm />
         </TopBox>
-        <BottomBox>
-          {data && (
+        {show && (
+          <BottomBox>
             <div>
               <ContactsTitle>Contacts</ContactsTitle>
               <Filter />
               <ContactList />
             </div>
-          )}
-          {isLoading && <Spinner />}
-          {error && (
+          </BottomBox>
+        )}
+        {isLoading && <Spinner />}
+        {error && (
+          <BottomBox>
             <div style={{ padding: '10px' }}>
               <h2 style={{ marginBottom: '10px' }}>
                 Sorry, something went wrong!
@@ -35,8 +38,8 @@ export const App = () => {
               <p style={{ marginBottom: '10px' }}>Error loading the contacts</p>
               <img src={errorImg} alt="Error" width={100} />
             </div>
-          )}
-        </BottomBox>
+          </BottomBox>
+        )}
       </ContainerBox>
     </Wrapper>
   );

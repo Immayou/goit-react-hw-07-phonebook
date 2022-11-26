@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { TiPhoneOutline } from 'react-icons/ti';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useGetContactsQuery } from '../../redux/contactsAPISlice';
 import { useAddContactMutation } from '../../redux/contactsAPISlice';
 import {
@@ -15,13 +17,24 @@ import {
 
 const ContactForm = () => {
   const { data } = useGetContactsQuery();
-  const [newContact, { isLoading, isSuccess, isError }] =
-    useAddContactMutation();
+  const [newContact, { isLoading }] = useAddContactMutation();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const nameInputId = nanoid();
   const numberInputId = nanoid();
+
+  const notifySuccess = () => {
+    toast.success('New contact is added !', {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
+
+  const notifyError = () => {
+    toast.error('Such contact already exists!', {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  };
 
   const handleInput = e => {
     switch (e.target.name) {
@@ -38,6 +51,7 @@ const ContactForm = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+
     const contactToAdd = {
       name,
       phone: number,
@@ -48,8 +62,8 @@ const ContactForm = () => {
     );
 
     checkIfNewContactAlreadyExists
-      ? alert(`${contactToAdd.name} is already in contacts`)
-      : await newContact(contactToAdd);
+      ? notifyError()
+      : (await newContact(contactToAdd)) && notifySuccess();
 
     reset();
   };
@@ -61,6 +75,7 @@ const ContactForm = () => {
 
   return (
     <PhoneForm onSubmit={handleSubmit}>
+      <ToastContainer />
       <Title>
         <TiPhoneOutline size={33} /> Phonebook
       </Title>

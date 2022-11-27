@@ -4,6 +4,7 @@ export const ContactSimpleItem = styled.li`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-align: start;
   font-size: 20px;
   font-weight: 500;
   line-height: 1.17;
@@ -13,15 +14,17 @@ export const ContactSimpleItem = styled.li`
 `;
 
 export const NameInfo = styled.span`
-  margin-right: 5px;
+  margin-right: 0;
 `;
+
 export const NumberInfo = styled.span`
   margin-right: 0;
 `;
 
-export const DeleteButton = styled.button`
+export const ContactButton = styled.button`
   width: 60px;
   min-height: 25px;
+  flex-shrink: 0;
   border-radius: 5px;
   border: 1px solid gray;
   background-color: lightgray;

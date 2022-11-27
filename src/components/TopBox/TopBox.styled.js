@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import imgWrapper from '../../images/wrapper.jpg';
 
-export const CoverBox = styled.div`
-  width: 370px;
+export const CoverBox = styled.section`
+  width: 500px;
   margin: 0 auto 20px auto;
   border: 0.1px solid #000;
   border-radius: 5px;

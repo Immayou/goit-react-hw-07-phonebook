@@ -1,11 +1,11 @@
-import shortid from 'shortid';
 import { useDispatch } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
 import { setFilter } from '../../redux/filterSlice';
 import { FilterWrapper, FilterLabel, InputFilterField } from './Filter.styled';
 
 const Filter = () => {
   const dispatch = useDispatch();
-  const filterInputId = shortid.generate();
+  const filterInputId = nanoid();
 
   const filterHandler = e => {
     e.preventDefault();

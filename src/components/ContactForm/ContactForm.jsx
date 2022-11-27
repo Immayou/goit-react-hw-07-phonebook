@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { TiPhoneOutline } from 'react-icons/ti';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useGetContactsQuery } from '../../redux/contactsAPISlice';
-import { useAddContactMutation } from '../../redux/contactsAPISlice';
+import { ToastContainer } from 'react-toastify';
+import {
+  useGetContactsQuery,
+  useAddContactMutation,
+} from '../../redux/contactsAPISlice';
+import {
+  notifyError,
+  notifySuccess,
+} from '../../../src/notificationMessages/notificationMessages';
 import {
   Title,
   PhoneForm,
@@ -23,18 +28,6 @@ const ContactForm = () => {
 
   const nameInputId = nanoid();
   const numberInputId = nanoid();
-
-  const notifySuccess = () => {
-    toast.success('New contact is added !', {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  };
-
-  const notifyError = text => {
-    toast.error(`${text} already exists in contacts!`, {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  };
 
   const handleInput = e => {
     switch (e.target.name) {

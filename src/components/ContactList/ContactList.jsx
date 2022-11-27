@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux';
 import { getFilterValue } from '../../redux/filterSlice';
 import { ContactItem } from '../ContactItem/ContactItem';
 import { Spinner } from '../Spinner/Spinner';
-// import { ListOfContacts } from './ContactList.styled';
 import { useGetContactsQuery } from '../../redux/contactsAPISlice';
 
 const ContactList = () => {
@@ -12,7 +11,7 @@ const ContactList = () => {
   const visibleContacts = data.filter(({ name }) =>
     name.toLowerCase().includes(normalizeFilter)
   );
-
+  const min = visibleContacts.length === 0;
   return (
     <>
       {isFetching ? (
@@ -24,6 +23,7 @@ const ContactList = () => {
           ))}
         </ul>
       )}
+      {min && <div>No matches</div>}
     </>
   );
 };

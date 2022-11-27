@@ -1,4 +1,9 @@
 import { useDeleteContactMutation } from '../../redux/contactsAPISlice';
+import { ToastContainer } from 'react-toastify';
+import {
+  notifySuccessDeletedInfo,
+  notifyError,
+} from '../../../src/notificationMessages/notificationMessages';
 import {
   ContactSimpleItem,
   NameInfo,
@@ -7,13 +12,19 @@ import {
 } from './ContactItem.styled';
 
 export const ContactItem = ({ item }) => {
-  const [deleteContact, { isLoading, error }] = useDeleteContactMutation();
-  if (error) {
-    console.log(1);
-  }
+  const [deleteContact, { isLoading }] = useDeleteContactMutation();
 
+  const onDeleteContactHandler = async () => {
+    try {
+      await deleteContact(item.id);
+      notifySuccessDeletedInfo(item.name);
+    } catch (error) {
+      notifyError();
+    }
+  };
   return (
     <>
+      <ToastContainer />
       <ContactSimpleItem>
         <div>
           <NameInfo>{item.name}: </NameInfo>
@@ -26,7 +37,7 @@ export const ContactItem = ({ item }) => {
           <ContactButton
             type="button"
             disabled={isLoading}
-            onClick={() => deleteContact(item.id)}
+            onClick={onDeleteContactHandler}
           >
             {isLoading ? 'Deleting' : 'Delete'}
           </ContactButton>

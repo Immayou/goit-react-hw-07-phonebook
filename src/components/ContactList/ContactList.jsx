@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { getFilterValue } from '../../redux/filterSlice';
 import { ContactItem } from '../ContactItem/ContactItem';
 import { Spinner } from '../Spinner/Spinner';
+import noMatchesImg from '../../images/noMatches.png';
 import { useGetContactsQuery } from '../../redux/contactsAPISlice';
 
 const ContactList = () => {
@@ -23,7 +24,12 @@ const ContactList = () => {
           ))}
         </ul>
       )}
-      {min && <div>No matches</div>}
+      {min && (
+        <div>
+          <h2 style={{ marginBottom: '10px' }}>Ooops... No matches!</h2>
+          <img src={noMatchesImg} alt="Error" width={100} />
+        </div>
+      )}
     </>
   );
 };

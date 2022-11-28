@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { nanoid } from '@reduxjs/toolkit';
+import { IoCloseSharp } from 'react-icons/io5';
 import {
   useEditContactMutation,
   useGetContactsQuery,
@@ -14,12 +15,14 @@ import {
   ModalWindow,
   ModalForm,
   ModalBox,
+  ModalCloseButton,
 } from '../Modal/Modal.styled';
 import { ContactButton } from '../ContactItem/ContactItem.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
 export const Modal = ({ onModalClose, dataContact }) => {
+  document.body.style.overflow = 'hidden';
   const [editContact] = useEditContactMutation();
   const { data: contacts } = useGetContactsQuery();
 
@@ -70,18 +73,25 @@ export const Modal = ({ onModalClose, dataContact }) => {
     };
 
     const checkIfEditedContactAlreadyExists = contacts.find(
-      ({ name }) => name.toLowerCase() === contactToEdit.name.toLowerCase()
+      ({ name, id }) =>
+        name.toLowerCase() === contactToEdit.name.toLowerCase() &&
+        contactToEdit.id !== id
     );
 
     checkIfEditedContactAlreadyExists
-      ? notifyError(contactToEdit.name) && onModalClose()
+      ? notifyError(contactToEdit.name)
       : (await editContact(contactToEdit)) &&
         notifySuccessEditedInfo(contactToEdit.name);
+
+    document.body.style.overflow = '';
   };
 
   return createPortal(
     <Overlay onClick={handleBackdropClick}>
       <ModalWindow>
+        <ModalCloseButton type="button" onClick={onModalClose}>
+          <IoCloseSharp size={20} />
+        </ModalCloseButton>
         <ModalForm onSubmit={handleEditContactFormSubmit}>
           <ModalBox>
             <div

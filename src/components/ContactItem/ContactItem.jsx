@@ -30,6 +30,7 @@ export const ContactItem = ({ item }) => {
 
   const onModalClose = async () => {
     setIsOpenModal(false);
+    document.body.style.overflow = '';
   };
 
   return (

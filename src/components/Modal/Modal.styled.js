@@ -14,6 +14,7 @@ export const Overlay = styled.div`
 `;
 
 export const ModalWindow = styled.div`
+  position: relative;
   max-width: calc(100vw - 48px);
   max-height: calc(100vh - 24px);
   padding: 20px;
@@ -31,4 +32,22 @@ export const ModalBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+`;
+
+export const ModalCloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: solid 1px #32a1ce;
+  border-radius: 50%;
+  transition: background-color 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  &:hover {
+    background-color: #32a1ce;
+  }
 `;

@@ -10,14 +10,14 @@ import { Wrapper, ContactsTitle } from './App.styled';
 
 export const App = () => {
   const { data, error, isLoading } = useGetContactsQuery();
-  const isnotContactListEmpty = data && data.length > 0;
+  const isNotContactListEmpty = data && data.length > 0;
 
   return (
     <Wrapper style={{ padding: '20px 0' }}>
       <TopBox>
         <ContactForm />
       </TopBox>
-      {isnotContactListEmpty && (
+      {isNotContactListEmpty && (
         <BottomBox>
           <div style={{ padding: '10px' }}>
             <ContactsTitle>Contacts</ContactsTitle>

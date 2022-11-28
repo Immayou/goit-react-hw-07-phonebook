@@ -15,6 +15,13 @@ export const notifySuccessDeletedInfo = text => {
   });
 };
 
+export const notifySuccessEditedInfo = text => {
+  toast.info(`${text} is edited!`, {
+    position: toast.POSITION.TOP_CENTER,
+    autoClose: 2000,
+  });
+};
+
 export const notifyError = text => {
   toast.error(`${text} already exists in contacts!`, {
     position: toast.POSITION.TOP_CENTER,

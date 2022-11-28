@@ -1,13 +1,7 @@
 import { useState } from 'react';
-import {
-  useDeleteContactMutation,
-  useGetContactsByIdQuery,
-} from '../../redux/contactsAPISlice';
+import { useDeleteContactMutation } from '../../redux/contactsAPISlice';
 import { ToastContainer } from 'react-toastify';
-import {
-  notifySuccessDeletedInfo,
-  notifyError,
-} from '../../../src/notificationMessages/notificationMessages';
+import { notifySuccessDeletedInfo } from '../../../src/notificationMessages/notificationMessages';
 import { Modal } from '../Modal/Modal';
 import {
   ContactSimpleItem,
@@ -19,28 +13,23 @@ import {
 export const ContactItem = ({ item }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [deleteContact, { isLoading }] = useDeleteContactMutation();
-  const { data } = useGetContactsByIdQuery(item.id);
 
   const onDeleteContactHandler = async () => {
     try {
       await deleteContact(item.id);
       notifySuccessDeletedInfo(item.name);
     } catch (error) {
-      notifyError();
+      console.log(error);
     }
   };
 
-  const onEditButtonClick = () => {
+  const onEditButtonHandlerClick = e => {
+    e.preventDefault();
     setIsOpenModal(true);
   };
 
   const onModalClose = async () => {
     setIsOpenModal(false);
-    try {
-      await data;
-    } catch (error) {
-      console.log(error.message);
-    }
   };
 
   return (
@@ -55,7 +44,7 @@ export const ContactItem = ({ item }) => {
           <ContactButton
             type="button"
             style={{ marginRight: '5px' }}
-            onClick={() => onEditButtonClick()}
+            onClick={onEditButtonHandlerClick}
           >
             Edit
           </ContactButton>
@@ -68,7 +57,7 @@ export const ContactItem = ({ item }) => {
           </ContactButton>
         </div>
       </ContactSimpleItem>
-      {isOpenModal && <Modal onModalClose={onModalClose} dataContact={data} />}
+      {isOpenModal && <Modal onModalClose={onModalClose} dataContact={item} />}
     </>
   );
 };

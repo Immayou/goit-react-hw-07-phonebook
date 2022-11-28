@@ -30,13 +30,17 @@ export const ContactItem = ({ item }) => {
     setModalOpenClick(1);
   };
 
+  const onModalClose = () => {
+    setModalOpenClick('');
+  };
+
   return (
     <>
       <ToastContainer />
       <ContactSimpleItem>
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <NameInfo>{item.name}: </NameInfo>
-          <NumberInfo>{item.number}</NumberInfo>
+          <NumberInfo>{item.phone}</NumberInfo>
         </div>
         <div style={{ display: 'flex' }}>
           <ContactButton
@@ -55,7 +59,9 @@ export const ContactItem = ({ item }) => {
           </ContactButton>
         </div>
       </ContactSimpleItem>
-      {modalOpenClick !== '' && <Modal />}
+      {modalOpenClick !== '' && (
+        <Modal onModalClose={onModalClose} contactIdQuery={item.id} />
+      )}
     </>
   );
 };

@@ -14,11 +14,12 @@ export const ContactSimpleItem = styled.li`
 `;
 
 export const NameInfo = styled.span`
-  margin-right: 0;
+  font-style: italic;
+  font-size: 25px;
 `;
 
 export const NumberInfo = styled.span`
-  margin-right: 0;
+  font-size: 20px;
 `;
 
 export const ContactButton = styled.button`

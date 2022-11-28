@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { nanoid } from '@reduxjs/toolkit';
-import {
-  useGetContactsByIdQuery,
-  useEditContactMutation,
-} from '../../redux/contactsAPISlice';
+import { useEditContactMutation } from '../../redux/contactsAPISlice';
 import {
   Overlay,
   ModalWindow,
@@ -15,13 +12,15 @@ import { ContactButton } from '../ContactItem/ContactItem.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export const Modal = ({ onModalClose, contactIdQuery }) => {
-  const { data } = useGetContactsByIdQuery(contactIdQuery);
+export const Modal = ({ onModalClose, dataContact }) => {
   const [editContact] = useEditContactMutation();
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+
+  const [name, setName] = useState(dataContact.name);
+  const [number, setNumber] = useState(dataContact.phone);
+
   const nameInputId = nanoid();
   const numberInputId = nanoid();
+
   useEffect(() => {
     const handleKeydown = e => {
       if (e.code === 'Escape') {
@@ -56,7 +55,7 @@ export const Modal = ({ onModalClose, contactIdQuery }) => {
   const handleEditContactFormSubmit = async e => {
     e.preventDefault();
     const contactToEdit = {
-      id: contactIdQuery,
+      id: dataContact.id,
       name,
       phone: number,
     };
@@ -69,7 +68,7 @@ export const Modal = ({ onModalClose, contactIdQuery }) => {
 
   return createPortal(
     <Overlay onClick={handleBackdropClick}>
-      {data && (
+      {dataContact && (
         <ModalWindow>
           <ModalForm onSubmit={handleEditContactFormSubmit}>
             <ModalBox>
@@ -86,7 +85,7 @@ export const Modal = ({ onModalClose, contactIdQuery }) => {
                   id={nameInputId}
                   type="text"
                   name="name"
-                  value={data.name}
+                  value={name}
                   onChange={handleInput}
                   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                   title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
@@ -100,7 +99,7 @@ export const Modal = ({ onModalClose, contactIdQuery }) => {
                   style={{ width: '300px' }}
                   type="tel"
                   name="number"
-                  value={data.phone}
+                  value={number}
                   onChange={handleInput}
                   pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                   title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"

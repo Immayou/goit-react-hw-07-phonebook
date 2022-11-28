@@ -12,7 +12,7 @@ const ContactList = () => {
   const visibleContacts = data.filter(({ name }) =>
     name.toLowerCase().includes(normalizeFilter)
   );
-  const min = visibleContacts.length === 0;
+  const noMatches = visibleContacts.length === 0;
   return (
     <>
       {isFetching ? (
@@ -24,7 +24,7 @@ const ContactList = () => {
           ))}
         </ul>
       )}
-      {min && (
+      {noMatches && (
         <div>
           <h2 style={{ marginBottom: '10px' }}>Ooops... No matches!</h2>
           <img src={noMatchesImg} alt="Error" width={100} />

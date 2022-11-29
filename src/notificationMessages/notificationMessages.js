@@ -16,7 +16,7 @@ export const notifySuccessDeletedInfo = text => {
 };
 
 export const notifySuccessEditedInfo = text => {
-  toast.info(`${text} is edited!`, {
+  toast.info(`${text}'s contact is edited!`, {
     position: toast.POSITION.TOP_CENTER,
     autoClose: 2000,
   });

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDeleteContactMutation } from '../../redux/contactsAPISlice';
 import { ToastContainer } from 'react-toastify';
+import { TiContacts } from 'react-icons/ti';
 import { notifySuccessDeletedInfo } from '../../../src/notificationMessages/notificationMessages';
 import { Modal } from '../Modal/Modal';
 import {
@@ -37,9 +38,12 @@ export const ContactItem = ({ item }) => {
     <>
       <ToastContainer />
       <ContactSimpleItem>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <NameInfo>{item.name}: </NameInfo>
-          <NumberInfo>{item.phone}</NumberInfo>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <TiContacts size={30} style={{ marginRight: '10px' }} />
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <NameInfo>{item.name}: </NameInfo>
+            <NumberInfo>{item.phone}</NumberInfo>
+          </div>
         </div>
         <div style={{ display: 'flex' }}>
           <ContactButton

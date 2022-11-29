@@ -54,10 +54,12 @@ const ContactForm = () => {
       ({ name }) => name.toLowerCase() === contactToAdd.name.toLowerCase()
     );
 
-    checkIfNewContactAlreadyExists
-      ? notifyError(contactToAdd.name)
-      : (await newContact(contactToAdd)) && notifySuccess();
-
+    if (checkIfNewContactAlreadyExists) {
+      notifyError(contactToAdd.name);
+    } else {
+      await newContact(contactToAdd);
+      notifySuccess();
+    }
     reset();
   };
 

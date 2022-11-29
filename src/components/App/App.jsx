@@ -6,6 +6,7 @@ import ContactList from '../ContactList/ContactList';
 import Filter from '../Filter/Filter';
 import { Spinner } from '../Spinner/Spinner';
 import errorImg from '../../images/error.png';
+import emptyPhonebookImg from '../../images/no_contacts.png';
 import { Wrapper, ContactsTitle } from './App.styled';
 
 export const App = () => {
@@ -23,6 +24,17 @@ export const App = () => {
             <ContactsTitle>Contacts</ContactsTitle>
             <Filter />
             <ContactList />
+          </div>
+        </BottomBox>
+      )}
+      {!isNotContactListEmpty && (
+        <BottomBox>
+          <div style={{ padding: '10px' }}>
+            <h2 style={{ marginBottom: '10px' }}>No contacts yet!</h2>
+            <p style={{ marginBottom: '10px' }}>
+              Add contacts to your phonebook
+            </p>
+            <img src={emptyPhonebookImg} alt="No contacts" width={100} />
           </div>
         </BottomBox>
       )}

@@ -78,10 +78,12 @@ export const Modal = ({ onModalClose, dataContact }) => {
         contactToEdit.id !== id
     );
 
-    checkIfEditedContactAlreadyExists
-      ? notifyError(contactToEdit.name)
-      : (await editContact(contactToEdit)) &&
-        notifySuccessEditedInfo(contactToEdit.name);
+    if (checkIfEditedContactAlreadyExists) {
+      notifyError(contactToEdit.name);
+    } else {
+      await editContact(contactToEdit);
+      notifySuccessEditedInfo(contactToEdit.name);
+    }
 
     document.body.style.overflow = '';
   };

@@ -24,7 +24,9 @@ export const App = () => {
   return (
     <Layout>
       <Header>
+        <button>Home</button>
         <button>Register</button>
+        <button>Log in</button>
       </Header>
       <MainWrapper>
         <TopBox>

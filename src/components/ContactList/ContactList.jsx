@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { getFilterValue } from '../../redux/filterSlice';
+import { selectFilterValue } from '../../redux/filterSlice';
 import { ContactItem } from '../ContactItem/ContactItem';
 import { Spinner } from '../Spinner/Spinner';
 import noMatchesImg from '../../images/noMatches.png';
@@ -7,7 +7,7 @@ import { useGetContactsQuery } from '../../redux/contactsAPISlice';
 import { NoMatchesSectionTitle } from '../ContactList/ContactList.styled';
 
 const ContactList = () => {
-  const enteredFilterValue = useSelector(getFilterValue);
+  const enteredFilterValue = useSelector(selectFilterValue);
   const { data, isFetching } = useGetContactsQuery();
   const normalizeFilter = enteredFilterValue.toLowerCase();
   const visibleContacts = data.filter(({ name }) =>

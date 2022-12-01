@@ -1,12 +1,10 @@
 import styled from '@emotion/styled';
 
-export const Wrapper = styled.main`
-  /* display: block; */
+export const MainWrapper = styled.main`
   width: 100%;
   height: 100%;
   text-align: center;
   margin: 0 auto;
-  background: linear-gradient(45deg, #eecfba, #c5dde8);
 `;
 export const ContactsTitle = styled.h2`
   font-weight: 500;

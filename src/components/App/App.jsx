@@ -7,7 +7,7 @@ import Filter from '../Filter/Filter';
 import { Spinner } from '../Spinner/Spinner';
 import errorImg from '../../images/error.png';
 import emptyPhonebookImg from '../../images/no_contacts.png';
-import { Wrapper, ContactsTitle, Layout } from './App.styled';
+import { MainWrapper, ContactsTitle, Layout } from './App.styled';
 
 export const App = () => {
   const { data, error, isLoading } = useGetContactsQuery();
@@ -15,10 +15,12 @@ export const App = () => {
 
   return (
     <Layout>
-      <header style={{ height: '80px' }}>
+      <header
+        style={{ boxShadow: '0 0 5px 5px rgba(0, 0, 0, 0.2)', height: '80px' }}
+      >
         <button>Register</button>
       </header>
-      <Wrapper style={{ padding: '20px 0 20px 0' }}>
+      <MainWrapper style={{ padding: '20px 0 20px 0' }}>
         <TopBox>
           <ContactForm />
         </TopBox>
@@ -58,7 +60,7 @@ export const App = () => {
             </div>
           </BottomBox>
         )}
-      </Wrapper>
+      </MainWrapper>
     </Layout>
   );
 };

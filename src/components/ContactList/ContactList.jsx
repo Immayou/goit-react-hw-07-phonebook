@@ -4,6 +4,7 @@ import { ContactItem } from '../ContactItem/ContactItem';
 import { Spinner } from '../Spinner/Spinner';
 import noMatchesImg from '../../images/noMatches.png';
 import { useGetContactsQuery } from '../../redux/contactsAPISlice';
+import { NoMatchesSectionTitle } from '../ContactList/ContactList.styled';
 
 const ContactList = () => {
   const enteredFilterValue = useSelector(getFilterValue);
@@ -26,7 +27,7 @@ const ContactList = () => {
       )}
       {noMatches && (
         <div>
-          <h2 style={{ marginBottom: '10px' }}>Ooops... No matches!</h2>
+          <NoMatchesSectionTitle>Ooops... No matches!</NoMatchesSectionTitle>
           <img src={noMatchesImg} alt="Error" width={100} />
         </div>
       )}

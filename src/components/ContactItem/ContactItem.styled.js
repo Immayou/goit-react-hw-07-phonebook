@@ -16,10 +16,12 @@ export const ContactSimpleItem = styled.li`
 export const NameInfo = styled.span`
   font-style: italic;
   font-size: 25px;
+  letter-spacing: 0.1ch;
 `;
 
 export const NumberInfo = styled.span`
   font-size: 20px;
+  letter-spacing: 0.1ch;
 `;
 
 export const ContactButton = styled.button`

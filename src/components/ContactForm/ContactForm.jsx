@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { TiPhoneOutline } from 'react-icons/ti';
-import { ToastContainer } from 'react-toastify';
 import {
   useGetContactsQuery,
   useAddContactMutation,
@@ -18,6 +17,7 @@ import {
   NumberLabel,
   InputNumberField,
   FormButton,
+  StyledContainer,
 } from './ContactForm.styled';
 
 const ContactForm = () => {
@@ -58,7 +58,7 @@ const ContactForm = () => {
       notifyError(contactToAdd.name);
     } else {
       await newContact(contactToAdd);
-      notifySuccess();
+      notifySuccess(contactToAdd.name);
     }
     reset();
   };
@@ -70,9 +70,9 @@ const ContactForm = () => {
 
   return (
     <PhoneForm onSubmit={handleSubmit}>
-      <ToastContainer />
+      <StyledContainer />
       <Title>
-        <TiPhoneOutline size={33} /> Phonebook
+        <TiPhoneOutline size={50} /> Phonebook
       </Title>
       <NameLabel htmlFor={nameInputId}>Name</NameLabel>
       <InputNameField

@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const notifySuccess = () => {
-  toast.success('New contact is added!', {
+export const notifySuccess = text => {
+  toast.success(`${text} is added to contacts!`, {
     position: toast.POSITION.TOP_CENTER,
     autoClose: 2000,
   });

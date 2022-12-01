@@ -7,7 +7,15 @@ import Filter from '../Filter/Filter';
 import { Spinner } from '../Spinner/Spinner';
 import errorImg from '../../images/error.png';
 import emptyPhonebookImg from '../../images/no_contacts.png';
-import { MainWrapper, ContactsTitle, Layout } from './App.styled';
+import {
+  MainWrapper,
+  ContactsTitle,
+  Layout,
+  Header,
+  NoContactsSectionTitle,
+  ErrorSectionTitle,
+  ErrorSectionText,
+} from './App.styled';
 
 export const App = () => {
   const { data, error, isLoading } = useGetContactsQuery();
@@ -15,31 +23,26 @@ export const App = () => {
 
   return (
     <Layout>
-      <header
-        style={{ boxShadow: '0 0 5px 5px rgba(0, 0, 0, 0.2)', height: '80px' }}
-      >
+      <Header>
         <button>Register</button>
-      </header>
-      <MainWrapper style={{ padding: '20px 0 20px 0' }}>
+      </Header>
+      <MainWrapper>
         <TopBox>
           <ContactForm />
         </TopBox>
         {isNotContactListEmpty && (
           <BottomBox>
-            <div style={{ padding: '10px' }}>
+            <div>
               <ContactsTitle>Contacts</ContactsTitle>
               <Filter />
               <ContactList />
             </div>
           </BottomBox>
         )}
-        {!isNotContactListEmpty && (
+        {!isNotContactListEmpty && !error && !isLoading && (
           <BottomBox>
-            <div style={{ padding: '10px' }}>
-              <h2 style={{ marginBottom: '10px' }}>No contacts yet!</h2>
-              <p style={{ marginBottom: '10px' }}>
-                Add contacts to your phonebook
-              </p>
+            <div>
+              <NoContactsSectionTitle>No contacts yet!</NoContactsSectionTitle>
               <img src={emptyPhonebookImg} alt="No contacts" width={100} />
             </div>
           </BottomBox>
@@ -49,13 +52,15 @@ export const App = () => {
             <Spinner />
           </div>
         )}
-        {error && (
+        {error && !isLoading && (
           <BottomBox>
-            <div style={{ padding: '10px' }}>
-              <h2 style={{ marginBottom: '10px' }}>
+            <div>
+              <ErrorSectionTitle>
                 Sorry, something went wrong!
-              </h2>
-              <p style={{ marginBottom: '10px' }}>Error loading the contacts</p>
+              </ErrorSectionTitle>
+              <ErrorSectionText style={{ marginBottom: '10px' }}>
+                Error loading the contacts
+              </ErrorSectionText>
               <img src={errorImg} alt="Error" width={100} />
             </div>
           </BottomBox>

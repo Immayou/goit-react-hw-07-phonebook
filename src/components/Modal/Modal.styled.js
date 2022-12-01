@@ -1,4 +1,11 @@
 import styled from '@emotion/styled';
+import { ToastContainer } from 'react-toastify';
+
+export const StyledContainer = styled(ToastContainer)`
+  font-size: 20px;
+  letter-spacing: 0.1ch;
+  text-transform: none;
+`;
 
 export const Overlay = styled.div`
   position: fixed;

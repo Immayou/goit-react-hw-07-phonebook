@@ -18,7 +18,7 @@ export const App = () => {
       <TopBox>
         <ContactForm />
       </TopBox>
-      {isNotContactListEmpty && (
+      {isNotContactListEmpty && !isLoading && (
         <BottomBox>
           <div style={{ padding: '10px' }}>
             <ContactsTitle>Contacts</ContactsTitle>
@@ -27,7 +27,7 @@ export const App = () => {
           </div>
         </BottomBox>
       )}
-      {!isNotContactListEmpty && (
+      {!isNotContactListEmpty && !isLoading && (
         <BottomBox>
           <div style={{ padding: '10px' }}>
             <h2 style={{ marginBottom: '10px' }}>No contacts yet!</h2>
@@ -43,7 +43,7 @@ export const App = () => {
           <Spinner />
         </div>
       )}
-      {error && (
+      {error && !isLoading && (
         <BottomBox>
           <div style={{ padding: '10px' }}>
             <h2 style={{ marginBottom: '10px' }}>
